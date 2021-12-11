@@ -28,7 +28,7 @@ export default {
         },
         withMask: {
             label: {
-                en: "Mask color",
+                en: "With mask?",
             },
             type: "OnOff",
             defaultValue: true,
