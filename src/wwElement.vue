@@ -125,12 +125,11 @@ function translate(pos, mouse) {
     const angle = Math.atan((mouse.y - pos.y) / (mouse.x - pos.x));
     return { x: Math.sign(mouse.x - pos.x) * Math.cos(angle), y: Math.sign(mouse.x - pos.x) * Math.sin(angle) };
 }
-};
 </script>
 
 <style scoped>
 svg {
-  width: 100%;
+    width: 100%;
 }
 #OeilDroit {
     transform: translate(var(--translateXRightEye), var(--translateYRightEye));
