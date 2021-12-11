@@ -72,53 +72,54 @@
 import { onMounted, onUnmounted, ref, reactive } from "vue";
 
 export default {
-  props: {
-    content: {type: Object, required: true}
-  },
-  setup() {
-      const mepman = ref(null);
-      const translateRightEye = reactive({ x: 0, y: 0 });
-      const translateLeftEye = reactive({ x: 0, y: 0 });
-      function onMouseMouve(event) {
-          const { width, height, x, y } = mepman.value.getBoundingClientRect();
-          const rightEyePositionX = (580 / 1000) * width + x;
-          const leftEyePositionX = (420 / 1000) * width + x;
-          const eyePositionY = (440 / 1000) * height + y;
+    props: {
+        content: { type: Object, required: true },
+    },
+    setup() {
+        const mepman = ref(null);
+        const translateRightEye = reactive({ x: 0, y: 0 });
+        const translateLeftEye = reactive({ x: 0, y: 0 });
+        function onMouseMouve(event) {
+            const { width, height, x, y } = mepman.value.getBoundingClientRect();
+            const rightEyePositionX = (580 / 1000) * width + x;
+            const leftEyePositionX = (420 / 1000) * width + x;
+            const eyePositionY = (440 / 1000) * height + y;
 
-          const { pageX: mouseX, pageY: mouseY } = event;
+            const { pageX: mouseX, pageY: mouseY } = event;
 
-          const { x: rightX, y: rightY } = translate(
-              { x: rightEyePositionX, y: eyePositionY },
-              { x: mouseX, y: mouseY }
-          );
-          const { x: leftX, y: leftY } = translate(
-              { x: leftEyePositionX, y: eyePositionY },
-              { x: mouseX, y: mouseY }
-          );
-          translateRightEye.x = rightX * 10;
-          translateRightEye.y = rightY * 5;
+            const { x: rightX, y: rightY } = translate(
+                { x: rightEyePositionX, y: eyePositionY },
+                { x: mouseX, y: mouseY }
+            );
+            const { x: leftX, y: leftY } = translate(
+                { x: leftEyePositionX, y: eyePositionY },
+                { x: mouseX, y: mouseY }
+            );
+            translateRightEye.x = rightX * 10;
+            translateRightEye.y = rightY * 5;
 
-          translateLeftEye.x = leftX * 10;
-          translateLeftEye.y = leftY * 5;
-      }
-      onMounted(() => document.addEventListener("mousemove", onMouseMouve));
-      onUnmounted(() => document.removeEventListener("mousemove", onMouseMouve));
+            translateLeftEye.x = leftX * 10;
+            translateLeftEye.y = leftY * 5;
+        }
+        onMounted(() => document.addEventListener("mousemove", onMouseMouve));
+        onUnmounted(() => document.removeEventListener("mousemove", onMouseMouve));
 
-      return { mepman, translateRightEye, translateLeftEye };
-  },
-  computed: {
-      cssVar() {
-          return {
-              "--translateXRightEye": `${this.translateRightEye.x}px`,
-              "--translateYRightEye": `${this.translateRightEye.y}px`,
-              "--translateXLeftEye": `${this.translateLeftEye.x}px`,
-              "--translateYLeftEye": `${this.translateLeftEye.y}px`,
-              '--pull-color': this.content.pullColor,
-              '--bg-color': this.content.backgroundColor,
-              '--mask-color': this.content.maskColor,
-          };
-      },
-  },
+        return { mepman, translateRightEye, translateLeftEye };
+    },
+    computed: {
+        cssVar() {
+            return {
+                "--translateXRightEye": `${this.translateRightEye.x}px`,
+                "--translateYRightEye": `${this.translateRightEye.y}px`,
+                "--translateXLeftEye": `${this.translateLeftEye.x}px`,
+                "--translateYLeftEye": `${this.translateLeftEye.y}px`,
+                "--pull-color": this.content.pullColor,
+                "--bg-color": this.content.backgroundColor,
+                "--mask-color": this.content.maskColor,
+                "--mask-display": this.content.withMask ? "initial" : "none",
+            };
+        },
+    },
 };
 
 function translate(pos, mouse) {
@@ -145,6 +146,7 @@ svg {
 }
 #Masque {
     fill: var(--mask-color);
+    display: var(--mask-display);
 }
 .cls-3 {
     fill: #c69c6d;

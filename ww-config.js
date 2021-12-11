@@ -26,5 +26,12 @@ export default {
             type: "Color",
             defaultValue: "#006837",
         },
+        withMask: {
+            label: {
+                en: "Mask color",
+            },
+            type: "OnOff",
+            defaultValue: true,
+        },
     },
 };
