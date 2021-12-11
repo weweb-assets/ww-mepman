@@ -129,6 +129,9 @@ function translate(pos, mouse) {
 </script>
 
 <style scoped>
+svg {
+  width: 100%;
+}
 #OeilDroit {
     transform: translate(var(--translateXRightEye), var(--translateYRightEye));
 }
